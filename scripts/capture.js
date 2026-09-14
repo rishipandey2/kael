@@ -14,6 +14,25 @@ async function run() {
 
   const page = await browser.newPage();
 
+  // Test iPhone standalone launch screen simulation
+  console.log('Capturing iPhone Launch Screen...');
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  
+  // Set html background dark so there's never a white flash
+  await page.evaluateOnNewDocument(() => {
+    document.documentElement.style.backgroundColor = '#0B0B0C';
+  });
+
+  // Navigate but take snapshot immediately before launch screen dismisses
+  await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+  await page.screenshot({ path: path.join(OUT_DIR, 'iphone-launch-screen.png') });
+
+  // Wait for main app to fully settle
+  console.log('Capturing Mobile Dark after launch...');
+  await page.waitForNetworkIdle();
+  await new Promise(r => setTimeout(r, 400));
+  await page.screenshot({ path: path.join(OUT_DIR, 'mobile-dark.png') });
+
   // 1. Desktop Dark
   console.log('Capturing Desktop Dark...');
   await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
@@ -31,34 +50,14 @@ async function run() {
   await page.goto(`${BASE_URL}/?theme=light`, { waitUntil: 'networkidle0' });
   await page.screenshot({ path: path.join(OUT_DIR, 'tablet-light.png') });
 
-  // 4. Mobile Dark (iPhone 14/15/16)
-  console.log('Capturing Mobile Dark...');
-  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-  await page.goto(BASE_URL, { waitUntil: 'networkidle0' });
-  await page.screenshot({ path: path.join(OUT_DIR, 'mobile-dark.png') });
-
   // 5. Mobile Light
   console.log('Capturing Mobile Light...');
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   await page.goto(`${BASE_URL}/?theme=light`, { waitUntil: 'networkidle0' });
   await page.screenshot({ path: path.join(OUT_DIR, 'mobile-light.png') });
 
-  // 6. Mobile Reminder Modal
-  console.log('Capturing Mobile Reminder Modal...');
-  await page.goto(BASE_URL, { waitUntil: 'networkidle0' });
-  await page.click('#task-reminder-btn');
-  await new Promise(r => setTimeout(r, 300));
-  await page.screenshot({ path: path.join(OUT_DIR, 'mobile-reminder-picker.png') });
-
-  // 7. Desktop Search Modal
-  console.log('Capturing Desktop Search Modal...');
-  await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
-  await page.goto(BASE_URL, { waitUntil: 'networkidle0' });
-  await page.click('#topbar-search-btn');
-  await new Promise(r => setTimeout(r, 300));
-  await page.screenshot({ path: path.join(OUT_DIR, 'desktop-search-modal.png') });
-
   await browser.close();
-  console.log('All screenshots captured with exact device emulation.');
+  console.log('All verification captures completed successfully.');
 }
 
 run().catch(console.error);

@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background rounded rect mask -->
-    <clipPath id="squircle">
-      <rect x="0" y="0" width="512" height="512" rx="115" ry="115" />
-    </clipPath>
-    
-    <!-- Horizon Arc Glow filter -->
+    <!-- Filter for soft ambient incandescent glow on arc and orb -->
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur1" />
-      <feGaussianBlur stdDeviation="16" result="blur2" />
+      <feGaussianBlur stdDeviation="5" result="blur1" />
+      <feGaussianBlur stdDeviation="14" result="blur2" />
       <feMerge>
         <feMergeNode in="blur2" />
         <feMergeNode in="blur1" />
@@ -16,64 +11,52 @@
       </feMerge>
     </filter>
 
-    <!-- Warm incandescent gradient for the arc -->
+    <!-- Warm incandescent gradient for the luminous horizon arc -->
     <linearGradient id="horizonGlow" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#E8D5B5" stop-opacity="0.1" />
-      <stop offset="25%" stop-color="#FCEFD8" stop-opacity="0.8" />
+      <stop offset="25%" stop-color="#FCEFD8" stop-opacity="0.85" />
       <stop offset="60%" stop-color="#FFFFFF" stop-opacity="1" />
-      <stop offset="90%" stop-color="#F2DFBE" stop-opacity="0.75" />
-      <stop offset="100%" stop-color="#C5A880" stop-opacity="0.2" />
+      <stop offset="90%" stop-color="#F2DFBE" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#C5A880" stop-opacity="0.15" />
     </linearGradient>
 
     <!-- Orb radial gradient -->
-    <radialGradient id="orbGlow" cx="45%" cy="45%" r="55%">
+    <radialGradient id="orbGlow" cx="42%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="70%" stop-color="#FDF4E7" />
-      <stop offset="100%" stop-color="#E4CFAC" />
+      <stop offset="65%" stop-color="#FDF5E9" />
+      <stop offset="100%" stop-color="#E5D0AD" />
     </radialGradient>
 
     <!-- Orb soft halo -->
     <radialGradient id="orbHalo" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
-      <stop offset="40%" stop-color="#F8EAD4" stop-opacity="0.15" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
-    </radialGradient>
-
-    <!-- Subtle diffuse radial glow underneath the arc -->
-    <radialGradient id="ambientUnderglow" cx="45%" cy="55%" r="50%">
-      <stop offset="0%" stop-color="#FFF0D4" stop-opacity="0.14" />
-      <stop offset="50%" stop-color="#E8CFA4" stop-opacity="0.04" />
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="45%" stop-color="#F8EAD4" stop-opacity="0.16" />
       <stop offset="100%" stop-color="#0B0B0C" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Squircle top rim light -->
-    <linearGradient id="rimLight" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
-      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.04" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
-    </linearGradient>
+    <!-- Subtle diffuse radial glow underneath the arc -->
+    <radialGradient id="ambientUnderglow" cx="52%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#FFF0D4" stop-opacity="0.12" />
+      <stop offset="55%" stop-color="#E8CFA4" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#0B0B0C" stop-opacity="0" />
+    </radialGradient>
   </defs>
 
-  <g clip-path="url(#squircle)">
-    <!-- Base surface matching the image icon -->
-    <rect width="512" height="512" fill="#0C0C0D" />
-    
-    <!-- Ambient glow under the curve -->
-    <ellipse cx="260" cy="280" rx="220" ry="160" fill="url(#ambientUnderglow)" transform="rotate(-15 260 280)" />
+  <!-- Deep warm black canvas matching #0B0B0C -->
+  <rect width="512" height="512" fill="#0B0B0C" />
+  
+  <!-- Subtle atmospheric warmth under the arc -->
+  <ellipse cx="290" cy="310" rx="200" ry="140" fill="url(#ambientUnderglow)" transform="rotate(-14 290 310)" />
 
-    <!-- Luminous horizon crescent matching image -->
-    <!-- Wide diffused glow stroke -->
-    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="#E6C898" stroke-width="14" opacity="0.25" filter="url(#glow)" />
-    <!-- Medium glow stroke -->
-    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="#FDEED2" stroke-width="6" opacity="0.6" filter="url(#glow)" />
-    <!-- Sharp intense core line -->
-    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="url(#horizonGlow)" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Luminous horizon arc occupying full optical width (60 -> 450) -->
+  <!-- Wide soft ambient stroke -->
+  <path d="M 64 388 C 160 258, 305 204, 450 216" fill="none" stroke="#E6C898" stroke-width="16" opacity="0.22" filter="url(#glow)" />
+  <!-- Medium incandescent stroke -->
+  <path d="M 64 388 C 160 258, 305 204, 450 216" fill="none" stroke="#FDEED2" stroke-width="7" opacity="0.65" filter="url(#glow)" />
+  <!-- Crisp luminous core line -->
+  <path d="M 64 388 C 160 258, 305 204, 450 216" fill="none" stroke="url(#horizonGlow)" stroke-width="3.2" stroke-linecap="round" />
 
-    <!-- Celestial Orb / Dot hovering gracefully above right shoulder of horizon -->
-    <circle cx="318" cy="216" r="18" fill="url(#orbHalo)" />
-    <circle cx="318" cy="216" r="9" fill="url(#orbGlow)" filter="url(#glow)" />
-
-    <!-- Subtle rim reflection on top border -->
-    <rect x="0" y="0" width="512" height="512" rx="115" ry="115" fill="none" stroke="url(#rimLight)" stroke-width="2" />
-  </g>
+  <!-- Celestial Orb hovering above the right shoulder -->
+  <circle cx="418" cy="148" r="26" fill="url(#orbHalo)" />
+  <circle cx="418" cy="148" r="21" fill="url(#orbGlow)" filter="url(#glow)" />
 </svg>

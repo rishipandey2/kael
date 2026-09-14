@@ -47,6 +47,25 @@ function initApp(): void {
 
   // Register Service Worker & Offline Listeners
   setupPWA();
+
+  // Seamless Launch Screen Dismissal
+  dismissLaunchScreen();
+}
+
+function dismissLaunchScreen(): void {
+  const splash = document.getElementById('app-launch-screen');
+  if (!splash) return;
+
+  // Let the browser paint the main app first frame, then initiate the subtle fade
+  requestAnimationFrame(() => {
+    // 80ms delay gives just enough time for ambient SVG and fonts to stabilize without making user wait
+    setTimeout(() => {
+      splash.classList.add('dismissed');
+      setTimeout(() => {
+        splash.remove();
+      }, 300);
+    }, 80);
+  });
 }
 
 function renderMainContent(mainContainer: HTMLElement): void {
