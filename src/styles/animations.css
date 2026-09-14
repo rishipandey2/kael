@@ -86,6 +86,7 @@
   margin-bottom: 0 !important;
   overflow: hidden;
   pointer-events: none;
+  will-change: opacity, transform, max-height;
   transition:
     opacity 200ms var(--ease-out),
     transform 220ms var(--ease-out),

@@ -58,6 +58,7 @@ function renderMainContent(mainContainer: HTMLElement): void {
   topbar.className = 'main-topbar';
   topbar.innerHTML = `
     <div class="mobile-brand">
+      <img src="/icon-76.png" alt="" class="brand-logo-img" aria-hidden="true" />
       <span class="brand-logo-text">t ā s k</span>
     </div>
     <div class="topbar-actions">

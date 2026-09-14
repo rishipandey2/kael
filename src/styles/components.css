@@ -139,6 +139,8 @@
   flex-direction: column;
   gap: 4px;
   list-style: none;
+  /* Scoped layout: changes inside won't force full-page reflow */
+  contain: layout style;
 }
 
 /* Task Item */

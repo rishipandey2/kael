@@ -118,8 +118,15 @@ class TaskStore {
     return () => this.listeners.delete(listener);
   }
 
+  private _notifyPending = false;
+
   private notify(): void {
-    this.listeners.forEach((fn) => fn());
+    if (this._notifyPending) return;
+    this._notifyPending = true;
+    requestAnimationFrame(() => {
+      this._notifyPending = false;
+      this.listeners.forEach((fn) => fn());
+    });
   }
 
   public getTasks(): Task[] {

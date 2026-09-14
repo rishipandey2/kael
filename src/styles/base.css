@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+  /* Eliminate the 300ms tap delay on mobile — makes every tap feel instant */
+  touch-action: manipulation;
 }
 
 html {

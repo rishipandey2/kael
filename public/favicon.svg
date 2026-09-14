@@ -16,44 +16,62 @@
       </feMerge>
     </filter>
 
-    <!-- Warm horizon gradient -->
+    <!-- Warm incandescent gradient for the arc -->
     <linearGradient id="horizonGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#E8D5B5" stop-opacity="0.2" />
-      <stop offset="35%" stop-color="#FFF2DC" stop-opacity="0.95" />
-      <stop offset="70%" stop-color="#F2DFBE" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#C5A880" stop-opacity="0.1" />
+      <stop offset="0%" stop-color="#E8D5B5" stop-opacity="0.1" />
+      <stop offset="25%" stop-color="#FCEFD8" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="90%" stop-color="#F2DFBE" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#C5A880" stop-opacity="0.2" />
     </linearGradient>
 
+    <!-- Orb radial gradient -->
+    <radialGradient id="orbGlow" cx="45%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="70%" stop-color="#FDF4E7" />
+      <stop offset="100%" stop-color="#E4CFAC" />
+    </radialGradient>
+
+    <!-- Orb soft halo -->
+    <radialGradient id="orbHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
+      <stop offset="40%" stop-color="#F8EAD4" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
     <!-- Subtle diffuse radial glow underneath the arc -->
-    <radialGradient id="ambientUnderglow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFF0D4" stop-opacity="0.18" />
-      <stop offset="50%" stop-color="#E8CFA4" stop-opacity="0.06" />
+    <radialGradient id="ambientUnderglow" cx="45%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#FFF0D4" stop-opacity="0.14" />
+      <stop offset="50%" stop-color="#E8CFA4" stop-opacity="0.04" />
       <stop offset="100%" stop-color="#0B0B0C" stop-opacity="0" />
     </radialGradient>
 
     <!-- Squircle top rim light -->
     <linearGradient id="rimLight" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16" />
-      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.03" />
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.04" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0" />
     </linearGradient>
   </defs>
 
   <g clip-path="url(#squircle)">
-    <!-- Base surface -->
-    <rect width="512" height="512" fill="#0B0B0C" />
+    <!-- Base surface matching the image icon -->
+    <rect width="512" height="512" fill="#0C0C0D" />
     
     <!-- Ambient glow under the curve -->
-    <ellipse cx="270" cy="270" rx="230" ry="170" fill="url(#ambientUnderglow)" transform="rotate(-18 270 270)" />
+    <ellipse cx="260" cy="280" rx="220" ry="160" fill="url(#ambientUnderglow)" transform="rotate(-15 260 280)" />
 
-    <!-- Luminous horizon crescent -->
-    <!-- Arc from bottom-left (x: 20, y: 380) sweeping gracefully upward to right (x: 500, y: 190) -->
+    <!-- Luminous horizon crescent matching image -->
     <!-- Wide diffused glow stroke -->
-    <path d="M 10 395 Q 210 240 505 185" fill="none" stroke="#E6C898" stroke-width="14" opacity="0.25" filter="url(#glow)" />
+    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="#E6C898" stroke-width="14" opacity="0.25" filter="url(#glow)" />
     <!-- Medium glow stroke -->
-    <path d="M 10 395 Q 210 240 505 185" fill="none" stroke="#FDEED2" stroke-width="6" opacity="0.6" filter="url(#glow)" />
+    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="#FDEED2" stroke-width="6" opacity="0.6" filter="url(#glow)" />
     <!-- Sharp intense core line -->
-    <path d="M 10 395 Q 210 240 505 185" fill="none" stroke="url(#horizonGlow)" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M 166 316 C 196 280, 246 242, 334 242" fill="none" stroke="url(#horizonGlow)" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Celestial Orb / Dot hovering gracefully above right shoulder of horizon -->
+    <circle cx="318" cy="216" r="18" fill="url(#orbHalo)" />
+    <circle cx="318" cy="216" r="9" fill="url(#orbGlow)" filter="url(#glow)" />
 
     <!-- Subtle rim reflection on top border -->
     <rect x="0" y="0" width="512" height="512" rx="115" ry="115" fill="none" stroke="url(#rimLight)" stroke-width="2" />

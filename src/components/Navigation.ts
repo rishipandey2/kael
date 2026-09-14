@@ -22,6 +22,7 @@ export class Navigation {
     this.sidebarContainer.innerHTML = `
       <div class="sidebar-top">
         <div class="sidebar-brand">
+          <img src="/icon-76.png" alt="tāsk" class="brand-logo-img" />
           <span class="brand-logo-text">t ā s k</span>
         </div>
         <ul class="sidebar-nav">
