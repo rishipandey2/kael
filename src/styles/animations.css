@@ -1,0 +1,77 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    stroke-dashoffset: 16;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.task-checkbox-check {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 0;
+  animation: checkmarkDraw 240ms var(--ease-out) forwards;
+}
+
+/* Subtle caret blink for "What's on your mind today? |" */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background-color: var(--text-muted);
+  vertical-align: -0.15em;
+  margin-left: 2px;
+  animation: cursorBlink 1.1s infinite;
+}
+
+/* Horizon Ambient Subtle Floating / Shimmer */
+@keyframes horizonBreathe {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translate(-10px, -5px) scale(1.015);
+    opacity: 1;
+  }
+}
+
+.ambient-horizon-svg {
+  animation: horizonBreathe 16s ease-in-out infinite;
+  transform-origin: bottom right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-horizon-svg,
+  .blinking-cursor,
+  .task-checkbox-check {
+    animation: none !important;
+  }
+}
