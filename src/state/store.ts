@@ -126,6 +126,10 @@ class TaskStore {
     return [...this.tasks];
   }
 
+  public getCurrentView(): string {
+    return this.currentView;
+  }
+
   public getFilteredTasks(): Task[] {
     const todayStr = new Date().toISOString().split('T')[0];
     let list = this.tasks;
@@ -136,15 +140,12 @@ class TaskStore {
     }
 
     if (this.currentView === 'today') {
-      // In Today view: tasks that are due today or without a future due date
+      // In Today view: only incomplete tasks due today or without a future due date
       return list.filter((t) => {
+        if (t.completed) return false;
         if (!t.dueDate) return true;
         return t.dueDate <= todayStr;
-      }).sort((a, b) => {
-        // Pending first, then completed
-        if (a.completed !== b.completed) return a.completed ? 1 : -1;
-        return a.order - b.order;
-      });
+      }).sort((a, b) => a.order - b.order);
     }
 
     if (this.currentView === 'upcoming') {

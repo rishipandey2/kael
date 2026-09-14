@@ -53,6 +53,13 @@
   opacity: 0.8;
 }
 
+/* Inner input must never show its own focus ring — the pill container handles visual focus */
+.task-input-pill input:focus,
+.task-input-pill input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .task-input-actions {
   display: flex;
   align-items: center;
@@ -141,6 +148,7 @@
   justify-content: space-between;
   padding: 14px 12px;
   border-radius: var(--radius-md);
+  max-height: 200px;
   transition: all var(--duration-normal) var(--ease-out);
   position: relative;
   user-select: none;
@@ -224,7 +232,19 @@
 .task-item.completed .task-title {
   color: var(--text-muted);
   text-decoration: line-through;
-  text-decoration-color: var(--text-subtle);
+  text-decoration-color: var(--border-medium);
+  text-decoration-thickness: 1px;
+  font-weight: 400;
+}
+
+/* Completed items as a whole should recede visually */
+.task-item.completed {
+  opacity: 0.55;
+}
+
+.task-item.completed:hover {
+  opacity: 0.7;
+  background-color: transparent;
 }
 
 .task-meta {

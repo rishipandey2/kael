@@ -64,7 +64,22 @@ export function renderTaskItem(task: Task): HTMLElement {
   // Click on main row toggles completion
   const mainBtn = li.querySelector('.task-item-main') as HTMLElement;
   const toggleAction = () => {
-    store.toggleTask(task.id);
+    const isCompleting = !task.completed;
+    const inTodayView = store.getCurrentView() === 'today';
+
+    if (isCompleting && inTodayView) {
+      // Immediately show the completed visual state
+      li.classList.add('completed');
+      // Then animate out
+      requestAnimationFrame(() => {
+        li.classList.add('task-exiting');
+        li.addEventListener('transitionend', () => {
+          store.toggleTask(task.id);
+        }, { once: true });
+      });
+    } else {
+      store.toggleTask(task.id);
+    }
   };
 
   mainBtn.addEventListener('click', toggleAction);
